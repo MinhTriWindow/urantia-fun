@@ -10,33 +10,81 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AudioVideoRouteImport } from './routes/audio-video'
+import { Route as ThuVienPaperRouteImport } from './routes/thu-vien-paper'
+import { Route as ThuVienPaperIndexRouteImport } from './routes/thu-vien-paper.index'
+import { Route as ThuVienPaperSlugRouteImport } from './routes/thu-vien-paper.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AudioVideoRoute = AudioVideoRouteImport.update({
+  id: '/audio-video',
+  path: '/audio-video',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ThuVienPaperRoute = ThuVienPaperRouteImport.update({
+  id: '/thu-vien-paper',
+  path: '/thu-vien-paper',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ThuVienPaperIndexRoute = ThuVienPaperIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ThuVienPaperRoute,
+} as any)
+const ThuVienPaperSlugRoute = ThuVienPaperSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ThuVienPaperRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/audio-video': typeof AudioVideoRoute
+  '/thu-vien-paper': typeof ThuVienPaperRouteWithChildren
+  '/thu-vien-paper/$slug': typeof ThuVienPaperSlugRoute
+  '/thu-vien-paper/': typeof ThuVienPaperIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/audio-video': typeof AudioVideoRoute
+  '/thu-vien-paper/$slug': typeof ThuVienPaperSlugRoute
+  '/thu-vien-paper': typeof ThuVienPaperIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/audio-video': typeof AudioVideoRoute
+  '/thu-vien-paper': typeof ThuVienPaperRouteWithChildren
+  '/thu-vien-paper/$slug': typeof ThuVienPaperSlugRoute
+  '/thu-vien-paper/': typeof ThuVienPaperIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/audio-video'
+    | '/thu-vien-paper'
+    | '/thu-vien-paper/$slug'
+    | '/thu-vien-paper/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/audio-video' | '/thu-vien-paper/$slug' | '/thu-vien-paper'
+  id:
+    | '__root__'
+    | '/'
+    | '/audio-video'
+    | '/thu-vien-paper'
+    | '/thu-vien-paper/$slug'
+    | '/thu-vien-paper/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AudioVideoRoute: typeof AudioVideoRoute
+  ThuVienPaperRoute: typeof ThuVienPaperRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +96,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/audio-video': {
+      id: '/audio-video'
+      path: '/audio-video'
+      fullPath: '/audio-video'
+      preLoaderRoute: typeof AudioVideoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/thu-vien-paper': {
+      id: '/thu-vien-paper'
+      path: '/thu-vien-paper'
+      fullPath: '/thu-vien-paper'
+      preLoaderRoute: typeof ThuVienPaperRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/thu-vien-paper/': {
+      id: '/thu-vien-paper/'
+      path: '/'
+      fullPath: '/thu-vien-paper/'
+      preLoaderRoute: typeof ThuVienPaperIndexRouteImport
+      parentRoute: typeof ThuVienPaperRoute
+    }
+    '/thu-vien-paper/$slug': {
+      id: '/thu-vien-paper/$slug'
+      path: '/$slug'
+      fullPath: '/thu-vien-paper/$slug'
+      preLoaderRoute: typeof ThuVienPaperSlugRouteImport
+      parentRoute: typeof ThuVienPaperRoute
+    }
   }
 }
 
+interface ThuVienPaperRouteChildren {
+  ThuVienPaperSlugRoute: typeof ThuVienPaperSlugRoute
+  ThuVienPaperIndexRoute: typeof ThuVienPaperIndexRoute
+}
+
+const ThuVienPaperRouteChildren: ThuVienPaperRouteChildren = {
+  ThuVienPaperSlugRoute: ThuVienPaperSlugRoute,
+  ThuVienPaperIndexRoute: ThuVienPaperIndexRoute,
+}
+
+const ThuVienPaperRouteWithChildren = ThuVienPaperRoute._addFileChildren(
+  ThuVienPaperRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AudioVideoRoute: AudioVideoRoute,
+  ThuVienPaperRoute: ThuVienPaperRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
