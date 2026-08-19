@@ -250,3 +250,21 @@
     opacity: 0;
   }
 }
+
+@utility field {
+  width: 100%;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  background-color: color-mix(in oklab, var(--card) 70%, transparent);
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  outline: none;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--gold) 28%, transparent);
+  }
+}
