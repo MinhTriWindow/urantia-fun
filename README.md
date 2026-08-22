@@ -103,4 +103,4 @@ npm i
 npm run dev
 ```
 
-Test sync từ Github về Lovable 22/08/2026
+Test sync lần 2 từ Github về Lovable 22/08/2026
