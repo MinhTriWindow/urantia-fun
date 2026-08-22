@@ -102,3 +102,5 @@ cd <repository-name>
 npm i
 npm run dev
 ```
+
+Test sync từ Github về Lovable 22/08/2026
