@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Menu, Sun, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
 const nav = [
@@ -18,9 +18,13 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/75 backdrop-blur-xl">
       <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-3 lg:flex lg:justify-between">
         <Link to="/" className="flex min-w-0 items-center gap-2.5">
-          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gradient-to-br from-gold to-sky halo">
-            <Sun className="h-4.5 w-4.5 text-primary-foreground" strokeWidth={2.2} />
-          </span>
+          <img
+            src="/urantia-tv-logo.png"
+            alt=""
+            width={80}
+            height={80}
+            className="h-10 w-10 shrink-0 rounded-full border border-gold/40 object-cover halo"
+          />
           <span className="truncate font-display text-base font-semibold sm:text-lg">
             Sách Urantia Ánh Sáng
           </span>
