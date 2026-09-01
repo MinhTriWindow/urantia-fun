@@ -112,6 +112,16 @@
     radial-gradient(90% 80% at 88% 40%, color-mix(in oklab, var(--sky) 42%, transparent), transparent 72%),
     linear-gradient(180deg, var(--ivory), var(--ivory));
   --gradient-gold: linear-gradient(120deg, var(--gold), var(--gold-soft) 55%, var(--sky));
+  --gradient-hologram: linear-gradient(
+    110deg,
+    oklch(0.7 0.25 350) 0%,
+    oklch(0.76 0.22 25) 18%,
+    oklch(0.82 0.2 58) 36%,
+    oklch(0.66 0.27 25) 54%,
+    oklch(0.72 0.24 345) 72%,
+    oklch(0.88 0.16 75) 88%,
+    oklch(0.7 0.25 350) 100%
+  );
   --shadow-halo: 0 18px 50px -22px color-mix(in oklab, var(--gold) 65%, transparent);
   --shadow-soft: 0 12px 40px -24px color-mix(in oklab, var(--foreground) 45%, transparent);
 }
@@ -144,6 +154,19 @@
   background-image: var(--gradient-gold);
   background-clip: text;
   color: transparent;
+}
+
+@utility text-hologram-glow {
+  display: inline-block;
+  color: transparent;
+  background-image: var(--gradient-hologram);
+  background-size: 240% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  filter: drop-shadow(0 0 7px oklch(0.72 0.24 345 / 0.5))
+    drop-shadow(0 0 18px oklch(0.8 0.2 45 / 0.38))
+    drop-shadow(0 0 34px oklch(0.65 0.25 25 / 0.24));
+  animation: hologram-shimmer 5s ease-in-out infinite;
 }
 
 @utility halo {
@@ -234,6 +257,29 @@
   }
   50% {
     box-shadow: 0 22px 70px -18px color-mix(in oklab, var(--gold) 85%, transparent);
+  }
+}
+
+@keyframes hologram-shimmer {
+  0%,
+  100% {
+    background-position: 0% 50%;
+    filter: drop-shadow(0 0 7px oklch(0.72 0.24 345 / 0.5))
+      drop-shadow(0 0 18px oklch(0.8 0.2 45 / 0.38))
+      drop-shadow(0 0 34px oklch(0.65 0.25 25 / 0.24));
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: drop-shadow(0 0 10px oklch(0.76 0.22 25 / 0.6))
+      drop-shadow(0 0 24px oklch(0.86 0.18 65 / 0.46))
+      drop-shadow(0 0 42px oklch(0.7 0.25 350 / 0.3));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-hologram-glow {
+    animation: none;
+    background-position: 50% 50%;
   }
 }
 

@@ -68,7 +68,7 @@ function Home() {
 
           <Reveal delay={120}>
             <h1 className="mt-6 font-display text-4xl leading-tight sm:text-6xl">
-              <span className="text-gradient-gold">Sách Urantia Ánh Sáng</span>
+              <span className="text-hologram-glow">Sách Urantia Ánh Sáng</span>
             </h1>
           </Reveal>
 
